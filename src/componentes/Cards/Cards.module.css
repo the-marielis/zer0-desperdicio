@@ -1,0 +1,33 @@
+.card {
+    background: white;
+    padding: 1rem 1.25rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.06);
+    cursor: pointer;
+    min-width: 140px;
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+}
+
+.avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-bottom: 0.5rem;
+}
+
+.nome {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.cargo {
+    font-size: 0.875rem;
+    color: #4b5563;
+}

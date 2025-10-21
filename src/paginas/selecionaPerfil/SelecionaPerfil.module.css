@@ -41,3 +41,12 @@
   min-width: 140px;
   text-align: center;
 }
+
+.cards {
+  display: flex;
+  gap: 20px;
+}
+
+.userlogado {
+  margin-top: 20px;
+}
