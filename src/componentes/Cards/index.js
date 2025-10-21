@@ -6,7 +6,7 @@ function Card({ usuario, onClick }) {
         <div className={styles.card} onClick={onClick}>
             <img src={usuario.avatar} alt={usuario.nome} className={styles.avatar} />
             <h3 className={styles.nome}>{usuario.nome}</h3>
-            <p className={styles.cargo}>{usuario.cargo}</p>
+            <p className={styles.cargo}>{usuario.cargo} ({usuario.secretaria}) </p>
         </div>
     );
 }
