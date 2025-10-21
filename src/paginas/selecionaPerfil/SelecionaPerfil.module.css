@@ -1,34 +1,43 @@
-.login-container {
+.loginContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background-color: #e5e7eb; /* bg-gray-200 */
+  background-color: #e5e7eb;
   padding: 1rem;
 }
 
-.login-title {
-  font-size: 2.5rem; /* text-4xl */
-  font-weight: bold;
-  color: #2563eb; /* text-blue-600 */
+.loginTitle {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #2563eb;
   margin-bottom: 0.5rem;
 }
 
-.light-text {
-  font-weight: 300; /* font-light */
+.lightText {
+  font-weight: 300;
 }
 
-.login-subtitle {
-  color: #4b5563; /* text-gray-600 */
+.loginSubtitle {
+  color: #4b5563;
   margin-bottom: 2rem;
-  font-size: 1.125rem; /* text-lg */
+  font-size: 1.125rem;
 }
 
-.profiles-container {
+.profilesContainer {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 2rem;
+  gap: 1rem;
 }
 
+.card {
+  background: white;
+  padding: 1rem 1.25rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.06);
+  cursor: pointer;
+  min-width: 140px;
+  text-align: center;
+}
