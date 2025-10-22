@@ -1,7 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+}
+
 .card {
     background: white;
-    padding: 1rem 1.25rem;
-    border-radius: 8px;
+    padding: 2.5rem 1.25rem;
+    border-radius: 1rem;
     box-shadow: 0 4px 8px rgba(0,0,0,0.06);
     cursor: pointer;
     min-width: 140px;
@@ -15,19 +24,20 @@
 }
 
 .avatar {
-    width: 80px;
-    height: 80px;
+    width: 7rem;
+    height: 7rem;
+    border: 5px solid rgba(207, 203, 203, 0.6);
     border-radius: 50%;
     margin-bottom: 0.5rem;
 }
 
 .nome {
-    font-size: 1rem;
+    font-size: 1.2rem;
     font-weight: 600;
     margin-bottom: 0.25rem;
 }
 
 .cargo {
-    font-size: 0.875rem;
+    font-size: 1rem;
     color: #4b5563;
 }
