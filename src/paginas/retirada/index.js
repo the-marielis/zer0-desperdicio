@@ -1,8 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Retirada.css";
 import BotaoSair from "../../componentes/BotaoSair";
+import { usuarios } from "../../data/usuarios";
 
 function Retirada() {
+  const [usuarioLogado, setUsuarioLogado] = useState(null);
+
+  useEffect(() => {
+    // Tenta carregar o usuário salvo no localStorage
+    const usuarioSalvo = JSON.parse(localStorage.getItem("usuarioLogado"));
+
+    if (usuarioSalvo) {
+      setUsuarioLogado(usuarioSalvo);
+    } else {
+      // Caso não tenha usuário logado, redireciona pra tela de seleção de usuário
+      window.location.href = "/";
+    }
+  }, []);
+
   return (
     <div id="retirada-view" className="retirada-container">
       <div className="retirada-grid">
@@ -13,12 +28,18 @@ function Retirada() {
             <div className="top-section">
               <div>
                 <h2 className="titulo">
-                  Olá, <span id="user-name-retirada">Ana Silva</span>!
+                  Olá,{" "}
+                  <span id="user-name-retirada">
+                    {usuarioLogado ? usuarioLogado.nome : "Carregando..."}
+                  </span>
+                  !
                 </h2>
                 <p className="subtitulo">
                   Interface de Retirada (
                   <span id="user-secretaria-retirada" className="negrito">
-                    Secretaria de Saúde
+                    {usuarioLogado
+                      ? usuarioLogado.secretaria
+                      : "Carregando..."}
                   </span>
                   )
                 </p>
@@ -37,10 +58,12 @@ function Retirada() {
                 autoPlay
                 playsInline
               ></video>
-              <i
+              <img
                 id="camera-placeholder"
-                className="fas fa-video-slash icone-camera"
-              ></i>
+                src="/imagens/no-camera.png"
+                alt="Imagem da câmera"
+                className="imagem-camera"
+              />
             </div>
 
             <div className="botoes-duplos">
@@ -56,14 +79,12 @@ function Retirada() {
 
         {/* Lado direito */}
         <div>
-          {/* Adicionar item */}
-          <div className="card">
+          <div className="card-direito">
             <h3 className="titulo-secundario">Adicionar Item</h3>
 
             <div className="campo">
               <label>1. Pesquisar Produto (Código ou Nome)</label>
               <div className="campo-icone">
-                <i className="fas fa-search"></i>
                 <input
                   type="text"
                   id="product-search-input"
@@ -88,18 +109,13 @@ function Retirada() {
             </button>
           </div>
 
-          {/* Carrinho */}
-          <div id="cart-section" className="card">
+          <div id="cart-section" className="card-direito">
             <h3 className="titulo-secundario">Carrinho de Retirada</h3>
             <ul id="cart-list" className="lista">
               <li className="vazio">O carrinho está vazio.</li>
             </ul>
 
-            <button
-              id="finalize-btn"
-              className="btn btn-verde"
-              disabled
-            >
+            <button id="finalize-btn" className="btn btn-verde" disabled>
               <i className="fas fa-check-circle"></i> Finalizar Retirada
             </button>
           </div>
