@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./Retirada.css";
 import BotaoSair from "../../componentes/BotaoSair";
-import { usuarios } from "../../data/usuarios";
+import { IoCamera, IoSearch } from "react-icons/io5";
+import { BsFillClipboardDataFill } from "react-icons/bs";
+import { MdOutlineAddShoppingCart } from "react-icons/md";
+import { FaCheckCircle } from "react-icons/fa";
 
 function Retirada() {
   const [usuarioLogado, setUsuarioLogado] = useState(null);
@@ -37,9 +40,7 @@ function Retirada() {
                 <p className="subtitulo">
                   Interface de Retirada (
                   <span id="user-secretaria-retirada" className="negrito">
-                    {usuarioLogado
-                      ? usuarioLogado.secretaria
-                      : "Carregando..."}
+                    {usuarioLogado ? usuarioLogado.secretaria : "Carregando..."}
                   </span>
                   )
                 </p>
@@ -68,10 +69,19 @@ function Retirada() {
 
             <div className="botoes-duplos">
               <button id="start-camera-btn" className="btn btn-azul">
-                <i className="fas fa-camera"></i> Ativar Câmera
+                <IoCamera
+                  size={25}
+                  style={{ marginRight: "8px", verticalAlign: "middle" }}
+                />
+                Ativar Câmera
               </button>
+
               <button id="view-all-stock-btn" className="btn btn-cinza">
-                <i className="fas fa-warehouse"></i> Consultar Estoques
+                <BsFillClipboardDataFill
+                  size={25}
+                  style={{ marginRight: "8px", verticalAlign: "middle" }}
+                />{" "}
+                Consultar Estoques
               </button>
             </div>
           </div>
@@ -85,6 +95,7 @@ function Retirada() {
             <div className="campo">
               <label>1. Pesquisar Produto (Código ou Nome)</label>
               <div className="campo-icone">
+                <IoSearch className="icone-lupa" />
                 <input
                   type="text"
                   id="product-search-input"
@@ -94,7 +105,7 @@ function Retirada() {
               <div id="search-results" className="resultados"></div>
             </div>
 
-            <div className="campo">
+            <div className="campo-quantidade">
               <label>2. Informe a Quantidade</label>
               <input
                 type="number"
@@ -105,7 +116,11 @@ function Retirada() {
             </div>
 
             <button id="add-to-cart-btn" className="btn btn-azul-grande">
-              <i className="fas fa-cart-plus"></i> Adicionar ao Carrinho
+              <MdOutlineAddShoppingCart 
+                size={25}
+                style={{ marginRight: "8px", verticalAlign: "middle" }}
+              />
+              Adicionar ao Carrinho
             </button>
           </div>
 
@@ -115,8 +130,12 @@ function Retirada() {
               <li className="vazio">O carrinho está vazio.</li>
             </ul>
 
-            <button id="finalize-btn" className="btn btn-verde" disabled>
-              <i className="fas fa-check-circle"></i> Finalizar Retirada
+            <button id="finalize-btn" className="btn btn-finalizar" disabled>
+              <FaCheckCircle 
+                size={25}
+                style={{ marginRight: "5%", verticalAlign: "middle" }}
+              />
+              Finalizar Retirada
             </button>
           </div>
         </div>

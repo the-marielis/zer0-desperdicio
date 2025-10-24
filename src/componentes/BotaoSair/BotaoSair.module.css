@@ -1,8 +1,8 @@
-.botao-sair {
-  background-color: #ef4444; /* vermelho */
+.botaoSair {
+  background-color: #ef4444; 
   color: white;
-  font-weight: 600;
-  padding: 0.6rem 1.2rem;
+  font-weight: 700;
+  padding: 1rem 1.2rem;
   border-radius: 0.6rem;
   border: none;
   cursor: pointer;
@@ -10,17 +10,13 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 0.95rem;
+  font-size: 1.1rem;
 }
 
-.botao-sair:hover {
+.botaoSair:hover {
   background-color: #dc2626; /* vermelho mais escuro */
 }
 
-.botao-sair:active {
+.botaoSair:active {
   transform: scale(0.97);
-}
-
-.botao-sair i {
-  font-size: 1.1rem;
 }
