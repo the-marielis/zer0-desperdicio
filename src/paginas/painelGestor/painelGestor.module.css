@@ -1,0 +1,11 @@
+.painelView {
+  display: flex;
+  height: 100vh;
+}
+
+.main {
+  flex: 1;
+  padding: 2rem;
+  overflow-y: auto;
+  background-color: #f3f4f6;
+}
