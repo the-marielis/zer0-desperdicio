@@ -1,7 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import SelecionaPerfil from "./paginas/selecionaPerfil"; // importa a pasta -> index.js
-import Retirada from "./paginas/retirada"; // importa a pasta -> index.js
-import React from "react";
+import Retirada from "./paginas/retirada";
 
 function AppRoutes() {
   return (

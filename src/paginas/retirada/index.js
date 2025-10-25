@@ -1,25 +1,72 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "./Retirada.css";
 import BotaoSair from "../../componentes/BotaoSair";
 import { IoCamera, IoSearch } from "react-icons/io5";
 import { BsFillClipboardDataFill } from "react-icons/bs";
 import { MdOutlineAddShoppingCart } from "react-icons/md";
 import { FaCheckCircle } from "react-icons/fa";
+import { RiCameraOffFill } from "react-icons/ri";
 
 function Retirada() {
   const [usuarioLogado, setUsuarioLogado] = useState(null);
+  const [cameraAtiva, setCameraAtiva] = useState(false);
+  const videoRef = useRef(null);
+  const streamRef = useRef(null);
 
   useEffect(() => {
-    // Tenta carregar o usuário salvo no localStorage
     const usuarioSalvo = JSON.parse(localStorage.getItem("usuarioLogado"));
-
     if (usuarioSalvo) {
       setUsuarioLogado(usuarioSalvo);
     } else {
-      // Caso não tenha usuário logado, redireciona pra tela de seleção de usuário
       window.location.href = "/";
     }
   }, []);
+
+  // Função para ativar/desativar a câmera
+  const handleCameraToggle = async () => {
+    if (!cameraAtiva) {
+      try {
+        // Garante que a câmera anterior foi desligada
+        if (streamRef.current) {
+          streamRef.current.getTracks().forEach((track) => track.stop());
+          streamRef.current = null;
+        }
+
+        // Solicita acesso à câmera novamente
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: true,
+        });
+        streamRef.current = stream;
+
+        // Garante que o elemento <video> está limpo antes de atribuir o novo stream
+        if (videoRef.current) {
+          videoRef.current.srcObject = null;
+          videoRef.current.srcObject = stream;
+          await videoRef.current.play();
+        }
+
+        setCameraAtiva(true);
+      } catch (error) {
+        console.error("Erro ao acessar a câmera:", error);
+        alert(
+          "Erro ao acessar a câmera. Verifique as permissões no navegador."
+        );
+      }
+    } else {
+      // Desliga a câmera
+      if (streamRef.current) {
+        streamRef.current.getTracks().forEach((track) => track.stop());
+        streamRef.current = null;
+      }
+
+      if (videoRef.current) {
+        videoRef.current.pause();
+        videoRef.current.srcObject = null;
+      }
+
+      setCameraAtiva(false);
+    }
+  };
 
   return (
     <div id="retirada-view" className="retirada-container">
@@ -54,8 +101,9 @@ function Retirada() {
             <h3 className="titulo-secundario">Monitoramento</h3>
             <div className="video-container">
               <video
+                ref={videoRef}
                 id="camera-feed"
-                className="camera"
+                className={`camera ${cameraAtiva ? "ativa" : ""}`}
                 autoPlay
                 playsInline
               ></video>
@@ -63,17 +111,33 @@ function Retirada() {
                 id="camera-placeholder"
                 src="/imagens/no-camera.png"
                 alt="Imagem da câmera"
-                className="imagem-camera"
+                className={`imagem-camera ${cameraAtiva ? "oculta" : ""}`}
               />
             </div>
 
             <div className="botoes-duplos">
-              <button id="start-camera-btn" className="btn btn-azul">
-                <IoCamera
-                  size={25}
-                  style={{ marginRight: "8px", verticalAlign: "middle" }}
-                />
-                Ativar Câmera
+              <button
+                id="start-camera-btn"
+                className={`btn ${cameraAtiva ? "btn-vermelho" : "btn-azul"}`}
+                onClick={handleCameraToggle}
+              >
+                {cameraAtiva ? (
+                  <>
+                    <RiCameraOffFill
+                      size={25}
+                      style={{ marginRight: "8px", verticalAlign: "middle" }}
+                    />
+                    Desligar Câmera
+                  </>
+                ) : (
+                  <>
+                    <IoCamera
+                      size={25}
+                      style={{ marginRight: "8px", verticalAlign: "middle" }}
+                    />
+                    Ativar Câmera
+                  </>
+                )}
               </button>
 
               <button id="view-all-stock-btn" className="btn btn-cinza">
@@ -116,7 +180,7 @@ function Retirada() {
             </div>
 
             <button id="add-to-cart-btn" className="btn btn-azul-grande">
-              <MdOutlineAddShoppingCart 
+              <MdOutlineAddShoppingCart
                 size={25}
                 style={{ marginRight: "8px", verticalAlign: "middle" }}
               />
@@ -131,7 +195,7 @@ function Retirada() {
             </ul>
 
             <button id="finalize-btn" className="btn btn-finalizar" disabled>
-              <FaCheckCircle 
+              <FaCheckCircle
                 size={25}
                 style={{ marginRight: "5%", verticalAlign: "middle" }}
               />
